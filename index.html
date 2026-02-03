@@ -1,272 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine, Rupal? ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #ffe4e1 0%, #ffcccb 50%, #ffb6c1 100%);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine, Rupal? ❤️</title>
 
-        .heart {
-            position: fixed;
-            top: -20px;
-            font-size: 18px;
-            user-select: none;
-            z-index: 1;
-            animation: fall linear forwards;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
 
-        @keyframes fall {
-            to { transform: translateY(110vh) translateX(50px) rotate(720deg); opacity: 0; }
-        }
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.97);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.3);
-            z-index: 10;
-            max-width: 420px;
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
+.container {
+    background: rgba(255,255,255,0.95);
+    padding: 35px;
+    border-radius: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 420px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(255,77,109,.3);
+}
 
-        h1 { 
-            color: #ff4d6d; 
-            margin-bottom: 20px; 
-            font-size: 2rem; 
-            font-family: 'Dancing Script', cursive;
-            text-shadow: 0 2px 4px rgba(255, 77, 109, 0.3);
-        }
+h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d6d;
+    font-size: 2rem;
+}
 
-        .cat-img {
-            width: 100%;
-            height: 280px;
-            object-fit: contain;
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
-            border-radius: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.25);
-            padding: 15px;
-            animation: gentleFloat 3s ease-in-out infinite;
-        }
+.cat-img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
 
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-8px) rotate(2deg); }
-        }
+.buttons {
+    position: relative;
+    height: 140px;
+    margin-top: 20px;
+}
 
-        .buttons {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 15px;
-            height: 120px;
-            overflow: visible;
-        }
+button {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    position: absolute;
+    transition: transform .15s;
+}
 
-        button {
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            position: relative;
-        }
+#yesBtn {
+    background: linear-gradient(135deg, #ff4d6d, #ff69b4);
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-        #yesBtn { 
-            background: linear-gradient(135deg, #ff4d6d, #ff69b4);
-            color: white; 
-            position: relative;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255, 77, 109, 0.6); }
-        }
-
-        #noBtn { 
-            background: linear-gradient(135deg, #adb5bd, #dee2e6);
-            color: white; 
-            z-index: 20;
-        }
-
-        #noBtn.static { position: relative; }
-
-        .shake { 
-            animation: shake 0.5s ease-in-out; 
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .celebrate { 
-            animation: celebratePop 0.5s ease-out; 
-        }
-
-        @keyframes celebratePop {
-            0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-
-        p { 
-            color: #ff4d6d; 
-            font-size: 1.1rem; 
-            margin: 0; 
-        }
-
-        @media (max-width: 480px) {
-            .container { padding: 30px 20px; margin: 20px; }
-            h1 { font-size: 1.6rem; }
-            .cat-img { height: 240px; }
-        }
-    </style>
+#noBtn {
+    background: linear-gradient(135deg, #adb5bd, #dee2e6);
+    color: white;
+    left: 50%;
+    top: 70px;
+    transform: translateX(-50%);
+}
+</style>
 </head>
+
 <body>
-    <div class="container" id="mainContainer">
-        <img src="image.jpg" class="cat-img" alt="Adorable pink Valentine's kitten with bowtie for Rupal ❤️">
-        <h1>Will you be my Valentine, Rupal? 🐾</h1>
-        <div class="buttons">
-            <button id="yesBtn" onclick="celebrate()">Yes! ❤️</button>
-            <button id="noBtn" class="static">No way!</button>
-        </div>
+
+<div class="container" id="main">
+    <img src="image.jpg" class="cat-img" alt="Cute kitten" />
+    <h1>Will you be my Valentine, Rupal? 🐾</h1>
+
+    <div class="buttons" id="playground">
+        <button id="yesBtn">Yes! ❤️</button>
+        <button id="noBtn">No way!</button>
     </div>
+</div>
 
-    <audio id="yaySound" preload="auto">
-        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBAAAAAQAABkCAAAABABAAQA=" type="audio/wav">
-    </audio>
+<script>
+const crushName = "Rupal";
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const playground = document.getElementById("playground");
+const main = document.getElementById("main");
 
-    <script>
-        const crushName = 'Rupal';
-        let dodgeCount = 0;
-        let yesScale = 1;
-        let gameActive = true;
-        
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const buttonsContainer = document.querySelector('.buttons');
+let yesScale = 1;
+let active = true;
 
-        // Falling hearts animation
-        function createHeart() {
-            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘'];
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            heart.style.fontSize = (Math.random() * 10 + 16) + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5500);
-        }
-        setInterval(createHeart, 300);
+// unified pointer (mouse + touch)
+function getPointer(e) {
+    if (e.touches && e.touches.length) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
+}
 
-        // No button chase game - FIXED to never disappear
-        const moveButton = () => {
-            if (!gameActive) return;
-            
-            dodgeCount++;
-            noBtn.classList.remove('static');
-            noBtn.classList.add('shake');
-            setTimeout(() => noBtn.classList.remove('shake'), 100);
+function moveNo(e) {
+    if (!active) return;
 
-            // Bigger playground within buttons container
-            const containerRect = buttonsContainer.getBoundingClientRect();
-            const btnRect = noBtn.getBoundingClientRect();
-            const maxX = window.innerWidth - noBtn.offsetWidth - 20;  // Screen width - button width
-            const maxY = window.innerHeight - noBtn.offsetHeight - 20; // Screen height - button height
-    
-            
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
-            
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+    const { x, y } = getPointer(e);
 
-            // Yes button grows continuously
-            yesScale += 0.15;
-            yesBtn.style.transform = `scale(${Math.min(yesScale, 2.5)})`;
-            
-            // Cycling taunts for endless fun
-            const taunts = [
-                "No way!", 
-                "Try again!", 
-                "Not so fast!", 
-                "You can't catch me! 😼", 
-                "Pick Yes instead! 💕", 
-                "Pretty please? 🐾", 
-                "I dare you! 😏"
-            ];
-            noBtn.textContent = taunts[dodgeCount % taunts.length];
-        };
+    const area = playground.getBoundingClientRect();
+    const btn = noBtn.getBoundingClientRect();
 
-        // Multiple interaction triggers
-        ['mouseover', 'click', 'touchstart', 'pointerdown'].forEach(event => {
-            noBtn.addEventListener(event, (e) => {
-                if (event === 'touchstart') e.preventDefault();
-                moveButton();
-            });
-        });
+    const centerX = btn.left + btn.width / 2;
+    const centerY = btn.top + btn.height / 2;
 
-        // Celebration screen with image1.jpg
-        function celebrate() {
-            gameActive = false;
-            const container = document.getElementById('mainContainer');
-            container.classList.add('celebrate');
-            container.innerHTML = `
-                <img src="image1.jpg" class="cat-img" alt="Happy Valentine's kitten celebrating with Rupal!">
-                <h1 style="font-size: 2.2rem;">Yay, ${crushName}! ❤️🐾</h1>
-                <p>I knew you'd say yes! Love you meri Jaan 💕</p>
-                
-            `;
+    let dx = centerX - x;
+    let dy = centerY - y;
+    const mag = Math.sqrt(dx*dx + dy*dy) || 1;
 
-            // Epic confetti explosion
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    confetti({
-                        particleCount: Math.random() * 50 + 100,
-                        spread: 70,
-                        origin: { x: Math.random(), y: Math.random() - 0.2 },
-                        colors: ['#ff4d6d', '#ff69b4', '#ffb3ba', '#fff', '#ffd700'],
-                        shapes: ['heart']
-                    });
-                }, i * 200);
-            }
+    dx /= mag;
+    dy /= mag;
 
-            // Play celebration sound
-            const yaySound = document.getElementById('yaySound');
-            yaySound.volume = 0.3;
-            yaySound.play().catch(() => {});
+    const jump = 140 + Math.random() * 100;
 
-            // Extra heart burst
-            for(let i = 0; i < 30; i++) {
-                setTimeout(createHeart, i * 30);
-            }
-        }
-    </script>
+    let newX = (btn.left - area.left) + dx * jump;
+    let newY = (btn.top - area.top) + dy * jump;
+
+    newX = Math.max(0, Math.min(newX, area.width - btn.width));
+    newY = Math.max(0, Math.min(newY, area.height - btn.height));
+
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
+
+    //yesScale += 0.15;
+    //yesBtn.style.transform = `translateX(-50%) scale(${Math.min(yesScale,2.5)})`;
+
+    const taunts = [
+        "Nice try 😼",
+        "Too slow!",
+        "Nope!",
+        "Just say Yes 💕",
+        "Almost 😏"
+    ];
+    noBtn.textContent = taunts[Math.floor(Math.random()*taunts.length)];
+}
+
+// EVENTS (desktop + mobile)
+["mouseenter","mousemove","touchstart","touchmove","pointerdown"]
+.forEach(evt => {
+    noBtn.addEventListener(evt, e => {
+        e.preventDefault();
+        moveNo(e);
+    }, { passive:false });
+});
+
+// YES CLICK
+yesBtn.onclick = () => {
+    active = false;
+    main.innerHTML = `
+        <img src="image1.jpg" class="cat-img" />
+        <h1>Yay ${crushName}! ❤️🐾</h1>
+        <p>I knew you'd say yes ! Love you meri Jaan 💕</p>
+    `;
+    confetti({ particleCount: 200, spread: 90 });
+};
+</script>
+
 </body>
 </html>
