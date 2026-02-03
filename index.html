@@ -23,6 +23,7 @@ body {
 .container {
     background: rgba(255,255,255,0.95);
     padding: 35px;
+    padding-bottom: calc(35px + env(safe-area-inset-bottom));
     border-radius: 30px;
     text-align: center;
     width: 90%;
@@ -37,6 +38,10 @@ h1 {
     font-size: 2rem;
 }
 
+p {
+    color: #ff4d6d;
+}
+
 .cat-img {
     width: 100%;
     height: 260px;
@@ -46,8 +51,10 @@ h1 {
 
 .buttons {
     position: relative;
-    height: 140px;
+    height: 220px;              /* more vertical space */
     margin-top: 20px;
+    overflow: visible;          /* critical for iOS */
+    padding: 15px;              /* safe movement zone */
 }
 
 button {
@@ -59,12 +66,14 @@ button {
     cursor: pointer;
     position: absolute;
     transition: transform .15s;
+    user-select: none;
 }
 
 #yesBtn {
     background: linear-gradient(135deg, #ff4d6d, #ff69b4);
     color: white;
     left: 50%;
+    top: 0;
     transform: translateX(-50%);
 }
 
@@ -72,7 +81,7 @@ button {
     background: linear-gradient(135deg, #adb5bd, #dee2e6);
     color: white;
     left: 50%;
-    top: 70px;
+    top: 90px;
     transform: translateX(-50%);
 }
 </style>
@@ -100,7 +109,7 @@ const main = document.getElementById("main");
 let yesScale = 1;
 let active = true;
 
-// unified pointer (mouse + touch)
+/* Unified pointer for mouse + touch */
 function getPointer(e) {
     if (e.touches && e.touches.length) {
         return { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -121,24 +130,34 @@ function moveNo(e) {
 
     let dx = centerX - x;
     let dy = centerY - y;
-    const mag = Math.sqrt(dx*dx + dy*dy) || 1;
+    const mag = Math.sqrt(dx * dx + dy * dy) || 1;
 
     dx /= mag;
     dy /= mag;
 
-    const jump = 140 + Math.random() * 100;
+    const isMobile = window.innerWidth < 600;
+    const jump = isMobile
+        ? 180 + Math.random() * 120
+        : 140 + Math.random() * 100;
 
     let newX = (btn.left - area.left) + dx * jump;
     let newY = (btn.top - area.top) + dy * jump;
 
-    newX = Math.max(0, Math.min(newX, area.width - btn.width));
-    newY = Math.max(0, Math.min(newY, area.height - btn.height));
+    const padding = 10; // prevents edge clipping (iOS fix)
+
+    newX = Math.max(
+        padding,
+        Math.min(newX, area.width - btn.width - padding)
+    );
+    newY = Math.max(
+        padding,
+        Math.min(newY, area.height - btn.height - padding)
+    );
 
     noBtn.style.left = newX + "px";
     noBtn.style.top = newY + "px";
 
-    //yesScale += 0.15;
-    //yesBtn.style.transform = `translateX(-50%) scale(${Math.min(yesScale,2.5)})`;
+    
 
     const taunts = [
         "Nice try 😼",
@@ -147,27 +166,26 @@ function moveNo(e) {
         "Just say Yes 💕",
         "Almost 😏"
     ];
-    noBtn.textContent = taunts[Math.floor(Math.random()*taunts.length)];
+    noBtn.textContent = taunts[Math.floor(Math.random() * taunts.length)];
 }
 
-// EVENTS (desktop + mobile)
-["mouseenter","mousemove","touchstart","touchmove","pointerdown"]
-.forEach(evt => {
+/* Events: desktop + mobile */
+["mouseenter","mousemove","touchstart","touchmove","pointerdown"].forEach(evt => {
     noBtn.addEventListener(evt, e => {
         e.preventDefault();
         moveNo(e);
-    }, { passive:false });
+    }, { passive: false });
 });
 
-// YES CLICK
+/* YES button */
 yesBtn.onclick = () => {
     active = false;
     main.innerHTML = `
         <img src="image1.jpg" class="cat-img" />
         <h1>Yay ${crushName}! ❤️🐾</h1>
-        <p>I knew you'd say yes ! Love you meri Jaan 💕</p>
+        <p>I knew you'd say yes! Love you meri Jaan 💕</p>
     `;
-    confetti({ particleCount: 200, spread: 90 });
+    confetti({ particleCount: 220, spread: 90 });
 };
 </script>
 
