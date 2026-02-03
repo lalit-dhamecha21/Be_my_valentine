@@ -196,8 +196,9 @@
             // Bigger playground within buttons container
             const containerRect = buttonsContainer.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
-            const maxX = Math.max(450, containerRect.width - btnRect.width);
-            const maxY = Math.max(320, containerRect.height - btnRect.height);
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20;  // Screen width - button width
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20; // Screen height - button height
+    
             
             const x = Math.random() * maxX;
             const y = Math.random() * maxY;
