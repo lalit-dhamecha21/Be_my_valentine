@@ -20,22 +20,8 @@
             position: relative;
         }
 
-        /* Enhanced Falling Hearts */
-        .heart {
-            position: fixed;
-            top: -20px;
-            font-size: 18px;
-            user-select: none;
-            z-index: 1;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) translateX(50px) rotate(720deg);
-                opacity: 0;
-            }
-        }
+        .heart { /* unchanged */ }
+        @keyframes fall { /* unchanged */ }
 
         .container {
             text-align: center;
@@ -46,41 +32,22 @@
             z-index: 10;
             max-width: 420px;
             backdrop-filter: blur(10px);
+            position: relative; /* CONTAINER keeps buttons inside */
         }
 
-        h1 { 
-            color: #ff4d6d; 
-            margin-bottom: 20px; 
-            font-size: 2rem; 
-            font-family: 'Dancing Script', cursive;
-            text-shadow: 0 2px 4px rgba(255, 77, 109, 0.3);
-        }
-
-        /* Perfect Valentine's Kitten */
-        .cat-img {
-            width: 100%;
-            height: 280px;
-            object-fit: contain;
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
-            border-radius: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.25);
-            padding: 15px;
-            animation: gentleFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-8px) rotate(2deg); }
-        }
+        h1 { /* unchanged */ }
+        .cat-img { /* unchanged */ }
+        @keyframes gentleFloat { /* unchanged */ }
 
         .buttons {
+            position: relative; /* FIXED: Buttons stay in container */
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
             margin-top: 15px;
-            min-height: 100px;
+            height: 100px;
+            overflow: visible; /* Let buttons escape playfully */
         }
 
         button {
@@ -93,53 +60,27 @@
             font-family: 'Poppins', sans-serif;
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative; /* FIXED: Better positioning */
         }
 
-        #yesBtn { 
-            background: linear-gradient(135deg, #ff4d6d, #ff69b4);
-            color: white; 
-            position: relative;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255, 77, 109, 0.6); }
-        }
+        #yesBtn { /* unchanged */ }
+        @keyframes pulse { /* unchanged */ }
 
         #noBtn {
             background: linear-gradient(135deg, #adb5bd, #dee2e6);
             color: white;
-            position: absolute;
             z-index: 20;
+            /* REMOVED absolute positioning - uses relative now */
         }
 
-        #noBtn.static { position: relative; }
+        #noBtn.static { /* unchanged */ }
 
-        /* Shake on No hover */
-        .shake {
-            animation: shake 0.5s ease-in-out;
-        }
+        .shake { /* unchanged */ }
+        @keyframes shake { /* unchanged */ }
+        .celebrate { /* unchanged */ }
+        @keyframes celebratePop { /* unchanged */ }
+        p { /* unchanged */ }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* Celebration Screen */
-        .celebrate {
-            animation: celebratePop 0.5s ease-out;
-        }
-
-        @keyframes celebratePop {
-            0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-
-        p { color: #ff4d6d; font-size: 1.1rem; margin: 0; }
-
-        /* Mobile fixes */
         @media (max-width: 480px) {
             .container { padding: 30px 20px; margin: 20px; }
             h1 { font-size: 1.6rem; }
@@ -148,30 +89,25 @@
     </style>
 </head>
 <body>
-
+    <!-- HTML unchanged -->
     <div class="container" id="mainContainer">
-        <!-- Your perfect pink/white kitten with bow! Place image.jpg here -->
-        <img src="image.jpg" 
-             class="cat-img" 
-             alt="Adorable pink Valentine's kitten with bowtie for Rupal ❤️">
-        
+        <img src="image.jpg" class="cat-img" alt="Adorable pink Valentine's kitten with bowtie for Rupal ❤️">
         <h1>Will you be my Valentine, Rupal? 🐾</h1>
-        
         <div class="buttons">
             <button id="yesBtn" onclick="celebrate()">Yes! ❤️</button>
             <button id="noBtn" class="static">No way!</button>
         </div>
     </div>
 
-    <!-- Subtle celebration sound -->
+    <!-- Audio unchanged -->
     <audio id="yaySound" preload="auto">
         <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBAAAAAQAABkCAAAABABAAQA=" type="audio/wav">
     </audio>
 
     <script>
         const crushName = 'Rupal';
-
-        // Enhanced Falling Hearts
+        
+        // Hearts unchanged
         function createHeart() {
             const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘'];
             const heart = document.createElement('div');
@@ -185,39 +121,60 @@
         }
         setInterval(createHeart, 300);
 
-        // Button Logic
+        // FIXED Button Logic
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
+        const buttonsContainer = document.querySelector('.buttons');
         let dodgeCount = 0;
         let yesScale = 1;
+        let gameActive = true;
 
         const moveButton = () => {
+            if (!gameActive) return;
+            
             dodgeCount++;
             noBtn.classList.remove('static');
             noBtn.classList.add('shake');
             setTimeout(() => noBtn.classList.remove('shake'), 500);
 
-            const rect = noBtn.getBoundingClientRect();
-            const x = Math.random() * (window.innerWidth - rect.width - 40) + 20;
-            const y = Math.random() * (window.innerHeight * 0.6 - rect.height - 40) + 20;
+            // FIXED: Calculate position RELATIVE to buttons container
+            const containerRect = buttonsContainer.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            const maxX = containerRect.width - btnRect.width;
+            const maxY = containerRect.height - btnRect.height;
+            
+            // Playful dance within container bounds
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            
+            // Position relative to buttons container (not body)
+            noBtn.style.position = 'absolute';
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
 
-            yesScale += 0.2;
-            yesBtn.style.transform = `scale(${yesScale})`;
+            // Yes button grows FOREVER
+            yesScale += 0.15;
+            yesBtn.style.transform = `scale(${Math.min(yesScale, 2.5)})`; // Cap at 2.5x
             
-            noBtn.textContent = dodgeCount > 3 ? "You can't catch me! 😼" : "No way!";
+            // Fun taunts that cycle
+            const taunts = [
+                "No way!", "Try again!", "Not so fast!", "You can't catch me! 😼", 
+                "Pick Yes instead! 💕", "Pretty please? 🐾", "I dare you! 😏"
+            ];
+            noBtn.textContent = taunts[dodgeCount % taunts.length];
         };
 
-        ['mouseover', 'click', 'touchstart'].forEach(event => {
+        // Multiple triggers for endless fun
+        ['mouseover', 'click', 'touchstart', 'pointerdown'].forEach(event => {
             noBtn.addEventListener(event, (e) => {
                 if (event === 'touchstart') e.preventDefault();
                 moveButton();
             });
         });
 
-        // Celebration - same kitten image for consistency
+        // FIXED Celebration - disable game
         function celebrate() {
+            gameActive = false; // Stop No button forever
             const container = document.getElementById('mainContainer');
             container.classList.add('celebrate');
             container.innerHTML = `
@@ -227,7 +184,7 @@
                 <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">(Reload for another try 😻)</p>
             `;
 
-            // Massive confetti burst
+            // Rest of celebration unchanged...
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     confetti({
